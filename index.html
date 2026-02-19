@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>&#35501;&#26360;&#35352;&#37682;</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="&#35501;&#26360;&#35352;&#37682;">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{background:#1a1208;min-height:100vh}
+body{font-family:"Noto Serif JP",serif;color:#f5ead8}
+#app{max-width:430px;margin:0 auto;min-height:100vh;background:#1a1208}
+.hd{padding:56px 24px 20px;border-bottom:1px solid rgba(245,234,216,.12)}
+.hd-t{font-family:"DM Serif Display",serif;font-size:28px;color:#f5ead8}
+.hd-s{font-size:11px;color:#a0906e;margin-top:4px;letter-spacing:.1em;text-transform:uppercase}
+.ct{padding:20px 20px 100px}
+.fab{position:fixed;bottom:32px;right:24px;width:58px;height:58px;border-radius:50%;background:linear-gradient(135deg,#c9934a,#e8b86d);border:none;color:#1a1208;font-size:28px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(201,147,74,.4);cursor:pointer;z-index:10}
+.card{background:rgba(245,234,216,.05);border:1px solid rgba(245,234,216,.1);border-radius:12px;padding:16px 18px;margin-bottom:12px;cursor:pointer}
+.ct1{font-size:16px;font-weight:700;color:#f5ead8;line-height:1.4}
+.ct2{font-size:12px;color:#a0906e;margin-top:3px}
+.pb{height:4px;background:rgba(245,234,216,.1);border-radius:2px;margin-top:12px}
+.pf{height:4px;background:linear-gradient(90deg,#c9934a,#e8b86d);border-radius:2px}
+.pl{font-size:11px;color:#a0906e;margin-top:6px;display:flex;justify-content:space-between}
+.bk{background:none;border:none;color:#c9934a;font-size:14px;font-family:"Noto Serif JP",serif;cursor:pointer;padding:0;margin-bottom:20px}
+.sg{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.sb{background:rgba(245,234,216,.05);border:1px solid rgba(245,234,216,.1);border-radius:10px;padding:14px}
+.sv{font-family:"DM Serif Display",serif;font-size:20px;color:#e8b86d}
+.sk{font-size:11px;color:#a0906e;margin-top:4px}
+.si{border-left:2px solid rgba(201,147,74,.4);padding:10px 14px;margin-bottom:10px}
+.btn{width:100%;padding:14px;border-radius:10px;border:none;cursor:pointer;font-family:"Noto Serif JP",serif;font-size:15px;font-weight:700;margin-bottom:10px}
+.bp{background:linear-gradient(135deg,#c9934a,#e8b86d);color:#1a1208}
+.bs{background:rgba(245,234,216,.08);color:#f5ead8;border:1px solid rgba(245,234,216,.15)}
+.bd{background:rgba(220,60,60,.15);color:#e86d6d;border:1px solid rgba(220,60,60,.2)}
+.fl{margin-bottom:16px}
+.fl label{font-size:12px;color:#a0906e;display:block;margin-bottom:6px}
+.inp{width:100%;background:rgba(245,234,216,.06);border:1px solid rgba(245,234,216,.15);border-radius:10px;padding:13px 14px;color:#f5ead8;font-family:"Noto Serif JP",serif;font-size:15px;outline:none}
+.inp:focus{border-color:#c9934a}
+.td{text-align:center;padding:28px 0}
+.tn{font-family:"DM Serif Display",serif;font-size:56px;color:#e8b86d;line-height:1}
+.tb{display:flex;gap:10px;margin-bottom:24px}
+.tb .btn{flex:1}
+.em{text-align:center;padding:60px 0;color:#6b5c40;font-size:14px;line-height:1.8}
+.ei{font-size:48px;margin-bottom:16px}
+.bg{display:inline-block;padding:2px 8px;border-radius:20px;font-size:11px;margin-left:8px}
+.bgd{background:rgba(100,200,120,.15);color:#7dd87d;border:1px solid rgba(100,200,120,.25)}
+.bgr{background:rgba(201,147,74,.15);color:#e8b86d;border:1px solid rgba(201,147,74,.25)}
+.rw{display:flex;justify-content:space-between;align-items:flex-start}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<div id="strings" style="display:none">
+  <span id="s-lib">My Library</span>
+  <span id="s-title">\u8aad\u66f8\u8a18\u9332</span>
+  <span id="s-reg">\u65b0\u3057\u3044\u672c\u3092\u767b\u9332</span>
+  <span id="s-back">\u2190 \u623b\u308b</span>
+  <span id="s-back2">\u2190 \u4e00\u89a7\u3078</span>
+  <span id="s-tl">\u30bf\u30a4\u30c8\u30eb *</span>
+  <span id="s-au">\u8457\u8005</span>
+  <span id="s-pg">\u7dcf\u30da\u30fc\u30b8\u6570 *</span>
+  <span id="s-tp">\u672c\u306e\u30bf\u30a4\u30c8\u30eb</span>
+  <span id="s-an">\u8457\u8005\u540d</span>
+  <span id="s-pe">\u4f8b\uff1a320</span>
+  <span id="s-save">\u767b\u9332\u3059\u308b</span>
+  <span id="s-stat">\u7d71\u8a08</span>
+  <span id="s-time">\u7dcf\u8aad\u66f8\u6642\u9593</span>
+  <span id="s-cnt">\u8aad\u66f8\u56de\u6570</span>
+  <span id="s-sd">\u8aad\u66f8\u958b\u59cb\u65e5</span>
+  <span id="s-ed">\u8aad\u66f8\u7d42\u4e86\u65e5</span>
+  <span id="s-rec">\ud83d\udcd6 \u8aad\u66f8\u3092\u8a18\u9332\u3059\u308b</span>
+  <span id="s-hist">\u8aad\u66f8\u5c65\u6b74</span>
+  <span id="s-del">\u3053\u306e\u672c\u3092\u524a\u9664</span>
+  <span id="s-sess">Reading Session</span>
+  <span id="s-can">\u2190 \u30ad\u30e3\u30f3\u30bb\u30eb</span>
+  <span id="s-timer">\u8aad\u66f8\u30bf\u30a4\u30de\u30fc</span>
+  <span id="s-start">\u25b6 \u30b9\u30bf\u30fc\u30c8</span>
+  <span id="s-pause">\u23f8 \u4e00\u6642\u505c\u6b62</span>
+  <span id="s-reset">\u30ea\u30bb\u30c3\u30c8</span>
+  <span id="s-rpg">\u4eca\u56de\u8aad\u3093\u3060\u30da\u30fc\u30b8\u6570</span>
+  <span id="s-rpgp">\u4f8b\uff1a30</span>
+  <span id="s-memo">\u30e1\u30e2\uff08\u4efb\u610f\uff09</span>
+  <span id="s-memp">\u611f\u60f3\u3084\u6c17\u3065\u304d\u306a\u3069</span>
+  <span id="s-rsav">\u8a18\u9332\u3092\u4fdd\u5b58</span>
+  <span id="s-empty">\u307e\u3060\u672c\u304c\u767b\u9332\u3055\u308c\u3066\u3044\u307e\u305b\u3093</span>
+  <span id="s-emp2">\u53f3\u4e0b\u306e\uff0b\u30dc\u30bf\u30f3\u304b\u3089\u8ffd\u52a0\u3057\u307e\u3057\u3087\u3046</span>
+  <span id="s-done">\u8aad\u4e86</span>
+  <span id="s-read">\u8aad\u4e2d</span>
+  <span id="s-unk">\u8457\u8005\u4e0d\u660e</span>
+  <span id="s-pg2">\u30da\u30fc\u30b8</span>
+  <span id="s-dcon">\u3053\u306e\u672c\u3092\u524a\u9664\u3057\u307e\u3059\u304b\uff1f</span>
+  <span id="s-req">\u30bf\u30a4\u30c8\u30eb\u3068\u30da\u30fc\u30b8\u6570\u306f\u5fc5\u9808\u3067\u3059</span>
+  <span id="s-hr">\u6642\u9593</span>
+  <span id="s-min">\u5206</span>
+  <span id="s-sec">\u79d2</span>
+</div>
+<script>
+function g(id){return document.getElementById(id).textContent;}
+var SK="rl1";
+function load(){try{return JSON.parse(localStorage.getItem(SK))||[];}catch(e){return[];}}
+function save(b){localStorage.setItem(SK,JSON.stringify(b));}
+function ft(s){
+  var h=Math.floor(s/3600),m=Math.floor((s%3600)/60),sec=s%60;
+  if(h>0)return h+g("s-hr")+m+g("s-min");
+  if(m>0)return m+g("s-min")+sec+g("s-sec");
+  return sec+g("s-sec");
+}
+function fd(d){
+  if(!d)return "\u2014";
+  return new Date(d).toLocaleDateString("ja-JP",{year:"numeric",month:"short",day:"numeric"});
+}
+function td(){return new Date().toISOString().split("T")[0];}
+function gs(book){
+  var t=0,p=0,i;
+  for(i=0;i<book.sessions.length;i++){t+=book.sessions[i].duration;p+=book.sessions[i].pages;}
+  var pr=book.totalPages>0?Math.min(p/book.totalPages*100,100):0;
+  return {totalReadTime:t,readPages:p,progress:pr};
+}
+var books=load();
+var tv=0,tr=false,ti=null,cid=null;
+function set(html){document.getElementById("app").innerHTML=html;}
+function pad(n){return n<10?"0"+n:""+n;}
+
+function renderList(){
+var html=”<div class='hd'><div class='hd-s'>”+g(“s-lib”)+”</div><div class='hd-t'>”+g(“s-title”)+”</div></div><div class='ct'>”;
+if(books.length===0){
+html+=”<div class='em'><div class='ei'>📚</div><div>”+g(“s-empty”)+”<br>”+g(“s-emp2”)+”</div></div>”;
+} else {
+var i,b,s,done;
+for(i=0;i<books.length;i++){
+b=books[i];s=gs(b);done=b.endDate||(s.readPages>=b.totalPages);
+html+=”<div class='card' onclick='detail(\""+b.id+"\")'>”;
+html+=”<div class='rw'><div class='ct1' style='flex:1'>”+b.title+”</div>”;
+html+=”<span class='bg "+(done?"bgd":"bgr")+"'>”+(done?g(“s-done”):g(“s-read”))+”</span></div>”;
+if(b.author)html+=”<div class='ct2'>”+b.author+”</div>”;
+html+=”<div class='pb'><div class='pf' style='width:"+s.progress+"%'></div></div>”;
+html+=”<div class='pl'><span>”+s.readPages+” / “+b.totalPages+” “+g(“s-pg2”)+”</span><span>”+Math.round(s.progress)+”%</span></div>”;
+html+=”</div>”;
+}
+}
+html+=”</div><button class='fab' onclick='renderAdd()'>+</button>”;
+set(html);
+}
+
+function renderAdd(){
+var html=”<div class='hd'><div class='hd-t'>”+g(“s-reg”)+”</div></div><div class='ct'>”;
+html+=”<button class='bk' onclick='renderList()'>”+g(“s-back”)+”</button>”;
+html+=”<div class='fl'><label>”+g(“s-tl”)+”</label><input class='inp' id='ft' placeholder='"+g("s-tp")+"'></div>”;
+html+=”<div class='fl'><label>”+g(“s-au”)+”</label><input class='inp' id='fa' placeholder='"+g("s-an")+"'></div>”;
+html+=”<div class='fl'><label>”+g(“s-pg”)+”</label><input class='inp' id='fp' type='number' placeholder='"+g("s-pe")+"'></div>”;
+html+=”<button class='btn bp' onclick='addBook()'>”+g(“s-save”)+”</button></div>”;
+set(html);
+}
+
+function addBook(){
+var t=document.getElementById(“ft”).value.trim();
+var a=document.getElementById(“fa”).value.trim();
+var p=parseInt(document.getElementById(“fp”).value);
+if(!t||!p){alert(g(“s-req”));return;}
+books.unshift({id:Date.now()+””,title:t,author:a,totalPages:p,startDate:td(),endDate:null,sessions:[]});
+save(books);renderList();
+}
+
+function detail(id){cid=id;renderDetail();}
+
+function renderDetail(){
+var book=null,i;
+for(i=0;i<books.length;i++){if(books[i].id===cid){book=books[i];break;}}
+if(!book){renderList();return;}
+var s=gs(book);
+var html=”<div class='hd'><button class='bk' onclick='renderList()'>”+g(“s-back2”)+”</button>”;
+html+=”<div class='hd-s'>”+(book.author||g(“s-unk”))+”</div>”;
+html+=”<div class='hd-t' style='font-size:20px'>”+book.title+”</div></div><div class='ct'>”;
+html+=”<div class='pb' style='height:6px'><div class='pf' style='width:"+s.progress+"%;height:6px'></div></div>”;
+html+=”<div class='pl'><span>”+s.readPages+” / “+book.totalPages+” “+g(“s-pg2”)+”</span><span>”+Math.round(s.progress)+”%</span></div>”;
+html+=”<div style='font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:#a0906e;margin:24px 0 12px'>”+g(“s-stat”)+”</div>”;
+html+=”<div class='sg'>”;
+html+=”<div class='sb'><div class='sv'>”+ft(s.totalReadTime)+”</div><div class='sk'>”+g(“s-time”)+”</div></div>”;
+html+=”<div class='sb'><div class='sv'>”+book.sessions.length+”</div><div class='sk'>”+g(“s-cnt”)+”</div></div>”;
+html+=”<div class='sb'><div class='sv'>”+fd(book.startDate)+”</div><div class='sk'>”+g(“s-sd”)+”</div></div>”;
+html+=”<div class='sb'><div class='sv'>”+fd(book.endDate)+”</div><div class='sk'>”+g(“s-ed”)+”</div></div>”;
+html+=”</div><div style='margin-top:20px'><button class='btn bp' onclick='showSess()'>”+g(“s-rec”)+”</button></div>”;
+var sess=[].concat(book.sessions).reverse();
+if(sess.length>0){
+html+=”<div style='font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:#a0906e;margin:24px 0 12px'>”+g(“s-hist”)+”</div>”;
+for(i=0;i<sess.length;i++){
+html+=”<div class='si'><div style='font-size:11px;color:#a0906e'>”+fd(sess[i].date)+”</div>”;
+html+=”<div style='font-size:14px;color:#f5ead8;margin-top:3px'>”+sess[i].pages+g(“s-pg2”)+”読了・”+ft(sess[i].duration)+”</div>”;
+if(sess[i].notes)html+=”<div style='font-size:12px;color:#a0906e;margin-top:4px'>”+sess[i].notes+”</div>”;
+html+=”</div>”;
+}
+}
+html+=”<button class='btn bd' onclick='delBook(\""+book.id+"\")'>”+g(“s-del”)+”</button></div>”;
+set(html);
+}
+
+function delBook(id){
+if(!confirm(g(“s-dcon”)))return;
+var nb=[],i;for(i=0;i<books.length;i++){if(books[i].id!==id)nb.push(books[i]);}
+books=nb;save(books);renderList();
+}
+
+function showSess(){tv=0;tr=false;if(ti)clearInterval(ti);renderSess();}
+
+function renderSess(){
+var book=null,i;
+for(i=0;i<books.length;i++){if(books[i].id===cid){book=books[i];break;}}
+var html=”<div class='hd'><div class='hd-s'>”+g(“s-sess”)+”</div><div class='hd-t' style='font-size:18px;margin-top:4px'>”+book.title+”</div></div><div class='ct'>”;
+html+=”<button class='bk' onclick='cancelSess()'>”+g(“s-can”)+”</button>”;
+html+=”<div class='td'><div class='tn' id='tdisp'>00:00:00</div><div style='font-size:12px;color:#a0906e;margin-top:8px;letter-spacing:.1em'>”+g(“s-timer”)+”</div></div>”;
+html+=”<div class='tb'><button class='btn bs' id='tbtn' onclick='togTimer()'>”+g(“s-start”)+”</button><button class='btn bs' onclick='rstTimer()'>”+g(“s-reset”)+”</button></div>”;
+html+=”<div class='fl'><label>”+g(“s-rpg”)+”</label><input class='inp' id='sp' type='number' placeholder='"+g("s-rpgp")+"'></div>”;
+html+=”<div class='fl'><label>”+g(“s-memo”)+”</label><input class='inp' id='sn' placeholder='"+g("s-memp")+"'></div>”;
+html+=”<button class='btn bp' onclick='saveSess()'>”+g(“s-rsav”)+”</button></div>”;
+set(html);
+}
+
+function togTimer(){
+tr=!tr;
+if(tr){
+ti=setInterval(function(){
+tv++;
+var h=Math.floor(tv/3600),m=Math.floor((tv%3600)/60),s=tv%60;
+var el=document.getElementById(“tdisp”),btn=document.getElementById(“tbtn”);
+if(el)el.textContent=pad(h)+”:”+pad(m)+”:”+pad(s);
+if(btn)btn.textContent=g(“s-pause”);
+},1000);
+} else {
+clearInterval(ti);
+var btn=document.getElementById(“tbtn”);
+if(btn)btn.textContent=g(“s-start”);
+}
+}
+
+function rstTimer(){
+tr=false;clearInterval(ti);tv=0;
+var el=document.getElementById(“tdisp”),btn=document.getElementById(“tbtn”);
+if(el)el.textContent=“00:00:00”;
+if(btn)btn.textContent=g(“s-start”);
+}
+
+function cancelSess(){tr=false;clearInterval(ti);tv=0;renderDetail();}
+
+function saveSess(){
+var p=parseInt(document.getElementById(“sp”).value)||0;
+var n=document.getElementById(“sn”).value;
+tr=false;clearInterval(ti);
+var i,idx=-1;
+for(i=0;i<books.length;i++){if(books[i].id===cid){idx=i;break;}}
+if(idx===-1)return;
+books[idx].sessions.push({date:td(),duration:tv,pages:p,notes:n});
+var rp=0;for(i=0;i<books[idx].sessions.length;i++)rp+=books[idx].sessions[i].pages;
+if(rp>=books[idx].totalPages&&!books[idx].endDate)books[idx].endDate=td();
+save(books);tv=0;renderDetail();
+}
+
+renderList();
+</script>
+
+</body>
+</html>
