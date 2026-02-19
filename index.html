@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>読書記録</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="読書記録">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{background:#1a1208;min-height:100vh}
+body{font-family:"Noto Serif JP",serif;color:#f5ead8}
+#app{max-width:430px;margin:0 auto;min-height:100vh;background:#1a1208}
+.hd{padding:56px 24px 20px;border-bottom:1px solid rgba(245,234,216,.12)}
+.hd-t{font-family:"DM Serif Display",serif;font-size:28px;color:#f5ead8}
+.hd-s{font-size:11px;color:#a0906e;margin-top:4px;letter-spacing:.1em;text-transform:uppercase}
+.ct{padding:20px 20px 100px}
+.fab{position:fixed;bottom:32px;right:24px;width:58px;height:58px;border-radius:50%;background:linear-gradient(135deg,#c9934a,#e8b86d);border:none;color:#1a1208;font-size:28px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(201,147,74,.4);cursor:pointer;z-index:10}
+.card{background:rgba(245,234,216,.05);border:1px solid rgba(245,234,216,.1);border-radius:12px;padding:16px 18px;margin-bottom:12px;cursor:pointer}
+.ct1{font-size:16px;font-weight:700;color:#f5ead8;line-height:1.4}
+.ct2{font-size:12px;color:#a0906e;margin-top:3px}
+.pb{height:4px;background:rgba(245,234,216,.1);border-radius:2px;margin-top:12px}
+.pf{height:4px;background:linear-gradient(90deg,#c9934a,#e8b86d);border-radius:2px}
+.pl{font-size:11px;color:#a0906e;margin-top:6px;display:flex;justify-content:space-between}
+.bk{background:none;border:none;color:#c9934a;font-size:14px;font-family:"Noto Serif JP",serif;cursor:pointer;padding:0;margin-bottom:20px}
+.st{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:#a0906e;margin:24px 0 12px}
+.sg{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.sb{background:rgba(245,234,216,.05);border:1px solid rgba(245,234,216,.1);border-radius:10px;padding:14px}
+.sv{font-family:"DM Serif Display",serif;font-size:20px;color:#e8b86d}
+.sk{font-size:11px;color:#a0906e;margin-top:4px}
+.si{border-left:2px solid rgba(201,147,74,.4);padding:10px 14px;margin-bottom:10px}
+.sd{font-size:11px;color:#a0906e}
+.ss{font-size:14px;color:#f5ead8;margin-top:3px}
+.sn{font-size:12px;color:#a0906e;margin-top:4px}
+.btn{width:100%;padding:14px;border-radius:10px;border:none;cursor:pointer;font-family:"Noto Serif JP",serif;font-size:15px;font-weight:700;margin-bottom:10px}
+.bp{background:linear-gradient(135deg,#c9934a,#e8b86d);color:#1a1208}
+.bs{background:rgba(245,234,216,.08);color:#f5ead8;border:1px solid rgba(245,234,216,.15)}
+.bd{background:rgba(220,60,60,.15);color:#e86d6d;border:1px solid rgba(220,60,60,.2)}
+.fl{margin-bottom:16px}
+.fl label{font-size:12px;color:#a0906e;display:block;margin-bottom:6px}
+.inp{width:100%;background:rgba(245,234,216,.06);border:1px solid rgba(245,234,216,.15);border-radius:10px;padding:13px 14px;color:#f5ead8;font-family:"Noto Serif JP",serif;font-size:15px;outline:none}
+.inp:focus{border-color:#c9934a}
+.td{text-align:center;padding:28px 0}
+.tn{font-family:"DM Serif Display",serif;font-size:56px;color:#e8b86d;line-height:1}
+.ts{font-size:12px;color:#a0906e;margin-top:8px;letter-spacing:.1em}
+.tb{display:flex;gap:10px;margin-bottom:24px}
+.tb .btn{flex:1}
+.em{text-align:center;padding:60px 0;color:#6b5c40;font-size:14px;line-height:1.8}
+.ei{font-size:48px;margin-bottom:16px}
+.bg{display:inline-block;padding:2px 8px;border-radius:20px;font-size:11px;margin-left:8px}
+.bd2{background:rgba(100,200,120,.15);color:#7dd87d;border:1px solid rgba(100,200,120,.25)}
+.br{background:rgba(201,147,74,.15);color:#e8b86d;border:1px solid rgba(201,147,74,.25)}
+.rw{display:flex;justify-content:space-between;align-items:flex-start}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+var SK="rl1";
+function load(){try{return JSON.parse(localStorage.getItem(SK))||[];}catch(e){return[];}}
+function save(b){localStorage.setItem(SK,JSON.stringify(b));}
+function ft(s){
+  var h=Math.floor(s/3600),m=Math.floor((s%3600)/60),sec=s%60;
+  if(h>0)return h+"時間"+m+"分";
+  if(m>0)return m+"分"+sec+"秒";
+  return sec+"秒";
+}
+function fd(d){
+  if(!d)return "—";
+  return new Date(d).toLocaleDateString("ja-JP",{year:"numeric",month:"short",day:"numeric"});
+}
+function td(){return new Date().toISOString().split("T")[0];}
+function gs(book){
+  var t=0,p=0,i;
+  for(i=0;i<book.sessions.length;i++){t+=book.sessions[i].duration;p+=book.sessions[i].pages;}
+  var pr=book.totalPages>0?Math.min(p/book.totalPages*100,100):0;
+  return {totalReadTime:t,readPages:p,progress:pr};
+}
+
+var books=load();
+var tv=0,tr=false,ti=null,cid=null;
+
+function set(html){document.getElementById(“app”).innerHTML=html;}
+
+function renderList(){
+var html=”<div class='hd'><div class='hd-s'>My Library</div><div class='hd-t'>読書記録</div></div><div class='ct'>”;
+if(books.length===0){
+html+=”<div class='em'><div class='ei'>📚</div><div>まだ本が登録されていません<br>右下の＋ボタンから追加しましょう</div></div>”;
+} else {
+var i,b,s,done;
+for(i=0;i<books.length;i++){
+b=books[i];s=gs(b);done=b.endDate||(s.readPages>=b.totalPages);
+html+=”<div class='card' onclick='detail(\""+b.id+"\")'>”;
+html+=”<div class='rw'><div class='ct1' style='flex:1'>”+b.title+”</div>”;
+html+=”<span class='bg "+(done?"bd2":"br")+"'>”+(done?“読了”:“読中”)+”</span></div>”;
+if(b.author)html+=”<div class='ct2'>”+b.author+”</div>”;
+html+=”<div class='pb'><div class='pf' style='width:"+s.progress+"%'></div></div>”;
+html+=”<div class='pl'><span>”+s.readPages+” / “+b.totalPages+” ページ</span><span>”+Math.round(s.progress)+”%</span></div>”;
+html+=”</div>”;
+}
+}
+html+=”</div><button class='fab' onclick='renderAdd()'>＋</button>”;
+set(html);
+}
+
+function renderAdd(){
+set(”<div class='hd'><div class='hd-t'>新しい本を登録</div></div><div class='ct'><button class='bk' onclick='renderList()'>← 戻る</button><div class='fl'><label>タイトル *</label><input class='inp' id='ft' placeholder='本のタイトル'></div><div class='fl'><label>著者</label><input class='inp' id='fa' placeholder='著者名'></div><div class='fl'><label>総ページ数 *</label><input class='inp' id='fp' type='number' placeholder='例：320'></div><button class='btn bp' onclick='addBook()'>登録する</button></div>”);
+}
+
+function addBook(){
+var t=document.getElementById(“ft”).value.trim();
+var a=document.getElementById(“fa”).value.trim();
+var p=parseInt(document.getElementById(“fp”).value);
+if(!t||!p){alert(“タイトルとページ数は必須です”);return;}
+books.unshift({id:Date.now()+””,title:t,author:a,totalPages:p,startDate:td(),endDate:null,sessions:[]});
+save(books);renderList();
+}
+
+function detail(id){cid=id;renderDetail();}
+
+function renderDetail(){
+var book=null,i;
+for(i=0;i<books.length;i++){if(books[i].id===cid){book=books[i];break;}}
+if(!book){renderList();return;}
+var s=gs(book);
+var html=”<div class='hd'><button class='bk' onclick='renderList()'>← 一覧へ</button>”;
+html+=”<div class='hd-s'>”+(book.author||“著者不明”)+”</div>”;
+html+=”<div class='hd-t' style='font-size:20px'>”+book.title+”</div></div><div class='ct'>”;
+html+=”<div class='pb' style='height:6px'><div class='pf' style='width:"+s.progress+"%;height:6px'></div></div>”;
+html+=”<div class='pl'><span>”+s.readPages+” / “+book.totalPages+” ページ</span><span>”+Math.round(s.progress)+”%</span></div>”;
+html+=”<div class='st'>統計</div><div class='sg'>”;
+html+=”<div class='sb'><div class='sv'>”+ft(s.totalReadTime)+”</div><div class='sk'>総読書時間</div></div>”;
+html+=”<div class='sb'><div class='sv'>”+book.sessions.length+”</div><div class='sk'>読書回数</div></div>”;
+html+=”<div class='sb'><div class='sv'>”+fd(book.startDate)+”</div><div class='sk'>読書開始日</div></div>”;
+html+=”<div class='sb'><div class='sv'>”+fd(book.endDate)+”</div><div class='sk'>読書終了日</div></div>”;
+html+=”</div><div style='margin-top:20px'><button class='btn bp' onclick='showSess()'>📖 読書を記録する</button></div>”;
+var sess=[].concat(book.sessions).reverse();
+if(sess.length>0){
+html+=”<div class='st'>読書履歴</div>”;
+for(i=0;i<sess.length;i++){
+html+=”<div class='si'><div class='sd'>”+fd(sess[i].date)+”</div>”;
+html+=”<div class='ss'>”+sess[i].pages+“ページ読了・”+ft(sess[i].duration)+”</div>”;
+if(sess[i].notes)html+=”<div class='sn'>”+sess[i].notes+”</div>”;
+html+=”</div>”;
+}
+}
+html+=”<button class='btn bd' onclick='delBook(\""+book.id+"\")'>この本を削除</button></div>”;
+set(html);
+}
+
+function delBook(id){
+if(!confirm(“この本を削除しますか？”))return;
+var nb=[];for(var i=0;i<books.length;i++){if(books[i].id!==id)nb.push(books[i]);}
+books=nb;save(books);renderList();
+}
+
+function showSess(){tv=0;tr=false;if(ti)clearInterval(ti);renderSess();}
+
+function renderSess(){
+var book=null,i;
+for(i=0;i<books.length;i++){if(books[i].id===cid){book=books[i];break;}}
+set(”<div class='hd'><div class='hd-s'>Reading Session</div><div class='hd-t' style='font-size:18px;margin-top:4px'>”+book.title+”</div></div><div class='ct'><button class='bk' onclick='cancelSess()'>← キャンセル</button><div class='td'><div class='tn' id='td'>00:00:00</div><div class='ts'>読書タイマー</div></div><div class='tb'><button class='btn bs' id='tbtn' onclick='togTimer()'>▶ スタート</button><button class='btn bs' onclick='rstTimer()'>リセット</button></div><div class='fl'><label>今回読んだページ数</label><input class='inp' id='sp' type='number' placeholder='例：30'></div><div class='fl'><label>メモ（任意）</label><input class='inp' id='sn' placeholder='感想や気づきなど'></div><button class='btn bp' onclick='saveSess()'>記録を保存</button></div>”);
+}
+
+function pad(n){return n<10?“0”+n:””+n;}
+
+function togTimer(){
+tr=!tr;
+if(tr){
+ti=setInterval(function(){
+tv++;
+var h=Math.floor(tv/3600),m=Math.floor((tv%3600)/60),s=tv%60;
+var el=document.getElementById(“td”),btn=document.getElementById(“tbtn”);
+if(el)el.textContent=pad(h)+”:”+pad(m)+”:”+pad(s);
+if(btn)btn.textContent=“⏸ 一時停止”;
+},1000);
+} else {
+clearInterval(ti);
+var btn=document.getElementById(“tbtn”);
+if(btn)btn.textContent=“▶ スタート”;
+}
+}
+
+function rstTimer(){
+tr=false;clearInterval(ti);tv=0;
+var el=document.getElementById(“td”),btn=document.getElementById(“tbtn”);
+if(el)el.textContent=“00:00:00”;
+if(btn)btn.textContent=“▶ スタート”;
+}
+
+function cancelSess(){tr=false;clearInterval(ti);tv=0;renderDetail();}
+
+function saveSess(){
+var p=parseInt(document.getElementById(“sp”).value)||0;
+var n=document.getElementById(“sn”).value;
+tr=false;clearInterval(ti);
+var i,idx=-1;
+for(i=0;i<books.length;i++){if(books[i].id===cid){idx=i;break;}}
+if(idx===-1)return;
+books[idx].sessions.push({date:td(),duration:tv,pages:p,notes:n});
+var rp=0;for(i=0;i<books[idx].sessions.length;i++)rp+=books[idx].sessions[i].pages;
+if(rp>=books[idx].totalPages&&!books[idx].endDate)books[idx].endDate=td();
+save(books);tv=0;renderDetail();
+}
+
+renderList();
+</script>
+
+</body>
+</html>
